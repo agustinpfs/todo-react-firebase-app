@@ -8,14 +8,18 @@ function App() {
   const [input, setInput] = useState('')
 
   const addTodo = event => {
+    // this will fire off when we click the button
+    event.preventDefault();
     setTodos([...todos, input]);
   }
 
   return (
     <div className="App">
       <h1>hello world!</h1>
-      <input value={input} onChange={event => setInput(event.target.value)} />
-      <button onClick={addTodo}>Add todo</button>
+      <form>
+        <input value={input} onChange={event => setInput(event.target.value)} />
+        <button type="submit" onClick={addTodo}>Add todo</button>
+      </form>
 
       <ul>
         {
