@@ -11,6 +11,7 @@ function App() {
     // this will fire off when we click the button
     event.preventDefault();
     setTodos([...todos, input]);
+    setInput('');
   }
 
   return (
