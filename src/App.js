@@ -23,6 +23,11 @@ function App() {
   const addTodo = event => {
     // this will fire off when we click the button
     event.preventDefault();
+
+    db.collection('todos').add({
+      todo: input
+    })
+
     setTodos([...todos, input]);
     setInput('');
   }
