@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { Button, FormControl, Input, InputLabel } from '@material-ui/core';
 import Todo from './Todo';
 import db from './firebase';
+import firebase from 'firebase';
 
 
 
@@ -14,7 +15,7 @@ function App() {
   // when the app loads, we need to listen to the db and fetch new todos as they get added/removed
   useEffect(() => {
     // this code here... fires when the app.js loads
-    db.collection('todos').onSnapshot(snapshot => {
+    db.collection('todos').orderBy('timestamp', 'asc').onSnapshot(snapshot => {
       setTodos(snapshot.docs.map(doc => doc.data().todo))
     })
   }, []); // we lets empty because we add a listener to db
@@ -25,7 +26,8 @@ function App() {
     event.preventDefault();
 
     db.collection('todos').add({
-      todo: input
+      todo: input,
+      timestamp: firebase.firestore.FieldValue.serverTimestamp() //marca la hora del servidor correcto
     })
 
     setTodos([...todos, input]);
