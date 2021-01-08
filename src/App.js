@@ -16,7 +16,7 @@ function App() {
   useEffect(() => {
     // this code here... fires when the app.js loads
     db.collection('todos').orderBy('timestamp', 'asc').onSnapshot(snapshot => {
-      setTodos(snapshot.docs.map(doc => doc.data().todo))
+      setTodos(snapshot.docs.map(doc => ({ id: doc.id, todo: doc.data().todo })))
     })
   }, []); // we lets empty because we add a listener to db
   // }, [input]); // [input] -> fires when input change
@@ -36,7 +36,7 @@ function App() {
 
   return (
     <div className="App">
-      <h1>hello world!</h1>
+      <h1>Administrador de tareas</h1>
       <form>
         <FormControl>
           <InputLabel>Write a Todo</InputLabel>
@@ -50,7 +50,7 @@ function App() {
       <ul>
         {
           todos.map(todo => (
-            <Todo text={todo} />
+            <Todo todo={todo} /> //cambio string por objeto(delete)
           ))
         }
       </ul>
